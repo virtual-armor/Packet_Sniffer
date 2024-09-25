@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import scapy.all as sc
+from scapy.layers import http
 
 def sniff(interface):
 	#For each packet captured, execute the process_packet function (via prn)
@@ -7,7 +8,7 @@ def sniff(interface):
 	sc.sniff(iface=interface, store=False, prn=process_packet)
 
 def process_packet(packet):
-	#print(packet.summary())
-	print(packet)
+	if packet.haslayer(http.HTTPRequest):
+		print(packet)
 
 sniff("eth0")
