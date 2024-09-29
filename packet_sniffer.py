@@ -2,6 +2,9 @@
 import scapy.all as sc
 from scapy.layers import http
 
+#This application is to be used with another application, such as an ARP spoofer application,
+#that would allow the hacking device to act as a MITM, where the target device
+#would be sending requests to the MITM device, which acts as the router.
 def sniff(interface):
 	#For each packet captured, execute the process_packet function (via prn)
 	#Store decides whether to store  packets in memory.
